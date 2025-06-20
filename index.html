@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestor de Tareas - Prioridad y Estado</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Gestor de Tareas</h1>
+
+  <section class="formulario">
+    <label for="titulo">Título de la tarea:</label>
+    <input id="titulo" placeholder="Título tarea" />
+
+    <label for="vencimiento">Fecha de entrega:</label>
+    <input id="vencimiento" type="date" />
+
+    <label for="prioridad">Prioridad:</label>
+    <select id="prioridad">
+      <option value="baja">Baja</option>
+      <option value="media" selected>Media</option>
+      <option value="alta">Alta</option>
+    </select>
+
+    <button id="btnAdd">Agregar Tarea</button>
+  </section>
+
+  <section class="filtros">
+    <label for="filterEstado">Filtrar por estado:</label>
+    <select id="filterEstado">
+      <option value="">Todos los estados</option>
+      <option value="pendiente">Pendiente</option>
+      <option value="en_progreso">En progreso</option>
+      <option value="completada">Completada</option>
+    </select>
+
+    <label for="filterPrioridad">Filtrar por prioridad:</label>
+    <select id="filterPrioridad">
+      <option value="">Todas prioridades</option>
+      <option value="baja">Baja</option>
+      <option value="media">Media</option>
+      <option value="alta">Alta</option>
+    </select>
+  </section>
+
+  <section id="kanban" class="kanban">
+    <div class="columna" data-estado="pendiente">
+      <h2>Pendiente</h2>
+      <div class="tarealist"></div>
+    </div>
+    <div class="columna" data-estado="en_progreso">
+      <h2>En progreso</h2>
+      <div class="tarealist"></div>
+    </div>
+    <div class="columna" data-estado="completada">
+      <h2>Completada</h2>
+      <div class="tarealist"></div>
+    </div>
+  </section>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

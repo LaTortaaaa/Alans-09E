@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f4f4f4;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .formulario, .filtros {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .formulario label, .filtros label {
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  
+  .formulario input, .formulario select, .formulario button,
+  .filtros select {
+    padding: 5px;
+    font-size: 1em;
+  }
+  
+  .kanban {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .columna {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 300px;
+    max-height: 600px;
+    overflow-y: auto;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  }
+  
+  .columna h2 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .tarealist .tarjeta {
+    background: #e2e2e2;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .tarjeta strong {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+  }
+  
+  .tarjeta p {
+    margin: 2px 0;
+    font-size: 0.9em;
+  }
+  
+  .subtareacont {
+    margin-top: 10px;
+    background: #ddd;
+    padding: 5px;
+    border-radius: 3px;
+  }
+  
+  .subtarea {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+    gap: 5px;
+    font-size: 0.9em;
+  }
+  
+  .subtarea input[type="checkbox"] {
+    transform: scale(1.2);
+  }
+  
+  .subtarea span {
+    flex-grow: 1;
+  }
+  
+  .btnEliminar, .btnDelSub {
+    background: #c0392b;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 2px 6px;
+  }
+  
+  .btnEliminar:hover, .btnDelSub:hover {
+    background: #e74c3c;
+  }
+  
+  .newSub {
+    width: 100%;
+    padding: 4px;
+    margin-top: 5px;
+    font-size: 0.9em;
+    box-sizing: border-box;
+  }
+  
