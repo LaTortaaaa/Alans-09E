@@ -1,24 +1,64 @@
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+import {
+  collection, addDoc, doc, getDoc, getDocs, updateDoc, deleteDoc,
+  onSnapshot, query, where, Timestamp
+} from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 import { db } from "./firebase-config.js";
 
-/**
- * Obtiene una tarea de Firestore por su ID.
- * @param {string} id - ID del documento en la colección "tareas".
- * @returns {Promise<Object|null>} - Retorna la tarea si existe, o null si no.
- */
-export async function getTareaById(id) {
-  try {
-    const docRef = doc(db, "tareas", id);
-    const docSnap = await getDoc(docRef);
+// Colecciones
+const tareasCol = collection(db, "tareas");
+const subtareasCol = collection(db, "subtareas");
 
-    if (docSnap.exists()) {
-      return { id: docSnap.id, ...docSnap.data() };
-    } else {
-      console.warn(`No se encontró la tarea con id: ${id}`);
-      return null;
+export const TareaRepository = {
+  async add(tarea) {
+    tarea.fecha_vencimiento = Timestamp.fromDate(new Date(tarea.fecha_vencimiento));
+    return addDoc(tareasCol, tarea);
+  },
+
+  async getById(id) {
+    const snap = await getDoc(doc(db, "tareas", id));
+    return snap.exists() ? { id: snap.id, ...snap.data() } : null;
+  },
+
+  listenAll(condiciones = [], callback) {
+    let q = tareasCol;
+    if (condiciones.length) {
+      q = query(tareasCol, ...condiciones);
     }
-  } catch (error) {
-    console.error("Error al obtener la tarea:", error);
-    throw error;
+    return onSnapshot(q, callback);
+  },
+
+  update(id, data) {
+    return updateDoc(doc(db, "tareas", id), data);
+  },
+
+  delete(id) {
+    return deleteDoc(doc(db, "tareas", id));
   }
-}
+};
+
+export const SubtareaRepository = {
+  add(subtarea) {
+    return addDoc(subtareasCol, subtarea);
+  },
+
+  getByTareaId(tareaId, callback) {
+    const q = query(subtareasCol, where("tarea_id", "==", tareaId));
+    return onSnapshot(q, callback);
+  },
+
+  update(id, data) {
+    return updateDoc(doc(db, "subtareas", id), data);
+  },
+
+  delete(id) {
+    return deleteDoc(doc(db, "subtareas", id));
+  },
+
+  async deleteAllByTareaId(tareaId) {
+    const q = query(subtareasCol, where("tarea_id", "==", tareaId));
+    const snap = await getDocs(q);
+    const promises = [];
+    snap.forEach(docSub => promises.push(deleteDoc(docSub.ref)));
+    return Promise.all(promises);
+  }
+};
